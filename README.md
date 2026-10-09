@@ -28,3 +28,5 @@ go test ./...
 | # | Title | Solution | Difficulty |
 |---|-------|----------|------------|
 | 1 | [Two Sum](https://leetcode.com/problems/two-sum/) | [two_sum.go](./0001_two_sum/two_sum.go) | Easy |
+| 2 | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [add_two_numbers.go](./0002_add_two_numbers/add_two_numbers.go) | Medium |
+| 3 | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [longest_substring.go](./0003_longest_substring/longest_substring.go) | Medium |
