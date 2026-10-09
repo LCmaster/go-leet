@@ -27,4 +27,4 @@ go test ./...
 
 | # | Title | Solution | Difficulty |
 |---|-------|----------|------------|
-|   |       |          |            |
+| 1 | [Two Sum](https://leetcode.com/problems/two-sum/) | [two_sum.go](./0001_two_sum/two_sum.go) | Easy |
