@@ -44,3 +44,6 @@ go run ./scripts/fetch.go longest-palindromic-substring
 | 1 | [Two Sum](https://leetcode.com/problems/two-sum/) | [two_sum.go](./0001_two_sum/two_sum.go) | Easy |
 | 2 | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) | [add_two_numbers.go](./0002_add_two_numbers/add_two_numbers.go) | Medium |
 | 3 | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [longest_substring.go](./0003_longest_substring/longest_substring.go) | Medium |
+| 4 | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) | [mediam_of_two_sorted_arrays.go](./0004_mediam_of_two_sorted_arrays/mediam_of_two_sorted_arrays.go) | Hard |
+| 5 | [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) | [longest_palindromic_substring.go](./0005_longest_palindromic_substring/longest_palindromic_substring.go) | Medium |
+| 6 | [Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/) | [zigzag_conversion.go](./0006_zigzag_conversion/zigzag_conversion.go) | Medium |
