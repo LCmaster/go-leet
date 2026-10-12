@@ -23,6 +23,20 @@ To run all tests in the repository:
 go test ./...
 ```
 
+## How to Fetch a New Problem
+
+You can download problem descriptions, examples, constraints, and starter code automatically:
+
+```bash
+go run ./scripts/fetch.go <problem_number_or_slug>
+```
+
+Examples:
+```bash
+go run ./scripts/fetch.go 5
+go run ./scripts/fetch.go longest-palindromic-substring
+```
+
 ## Problems Solved
 
 | # | Title | Solution | Difficulty |
