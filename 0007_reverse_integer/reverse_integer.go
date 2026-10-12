@@ -1,8 +1,6 @@
 package reverseinteger
 
-import (
-	"math"
-)
+import "math"
 
 // 7. Reverse Integer
 //
@@ -35,51 +33,13 @@ import (
 // - `-2^31 <= x <= 2^31 - 1`
 
 func reverse(x int) int {
-	if x == 0 {
-		return x
+	result := 0
+	for x != 0 {
+		result = result*10 + (x % 10)
+		x /= 10
 	}
-
-	lowerLimit := math.MinInt32
-	upperLimit := math.MaxInt32
-
-	n := x
-	isNegative := false
-	if n < 0 {
-		isNegative = true
-		n *= -1
-	}
-
-	i, result := 0, 0
-	digit := []int{}
-	for n/PowInt(10, i) >= 1 {
-		d := (n / PowInt(10, i)) % 10
-		digit = append(digit, d)
-		i++
-	}
-	for j := 0; i > 0; j++ {
-		result += PowInt(10, i-1) * digit[j]
-		i--
-	}
-
-	if isNegative {
-		result *= -1
-	}
-
-	if result < lowerLimit || result > upperLimit {
-		result = 0
-	}
-
-	return result
-}
-
-func PowInt(base, exp int) int {
-	result := 1
-	for exp > 0 {
-		if exp&1 == 1 {
-			result *= base
-		}
-		base *= base
-		exp >>= 1
+	if result < math.MinInt32 || result > math.MaxInt32 {
+		return 0
 	}
 	return result
 }
