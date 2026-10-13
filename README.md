@@ -50,3 +50,4 @@ go run ./scripts/fetch.go longest-palindromic-substring
 | 7 | [Reverse Integer](https://leetcode.com/problems/reverse-integer/) | [reverse_integer.go](./0001-0009/0007_reverse_integer/reverse_integer.go) | Medium |
 | 8 | [String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/) | [string_to_integer_atoi.go](./0001-0009/0008_string_to_integer_atoi/string_to_integer_atoi.go) | Medium |
 | 9 | [Palindrome Number](https://leetcode.com/problems/palindrome-number/) | [palindrome_number.go](./0001-0009/0009_palindrome_number/palindrome_number.go) | Easy |
+| 10 | [Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/) | [regular_expression_matching.go](./0010-0019/0010_regular_expression_matching/regular_expression_matching.go) | Hard |
