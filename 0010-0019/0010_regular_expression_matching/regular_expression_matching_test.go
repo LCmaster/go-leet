@@ -198,6 +198,18 @@ func TestIsMatch(t *testing.T) {
 			p:    ".*a*aa*.*b*.c*.*",
 			want: true,
 		},
+		{
+			name: "abcd with d*",
+			s:    "abcd",
+			p:    "d*",
+			want: false,
+		},
+		{
+			name: "bba with a",
+			s:    "bba",
+			p:    "a",
+			want: false,
+		},
 	}
 
 	for _, tt := range tests {

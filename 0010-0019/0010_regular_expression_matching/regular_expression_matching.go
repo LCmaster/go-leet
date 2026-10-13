@@ -41,37 +41,32 @@ package regularexpressionmatching
 
 func isMatch(s string, p string) bool {
 	m, n := len(s), len(p)
-	memo := make([][]bool, m+1)
+	prev := make([]bool, n+1)
+	curr := make([]bool, n+1)
+	prev[0] = true
 
-	for i := range memo {
-		memo[i] = make([]bool, n+1)
-		for j := range memo[i] {
-			if i == 0 && j == 0 {
-				memo[i][j] = true
-				continue
-			}
-			if i == 0 || j == 0 {
-				if i == 0 && j >= 2 && p[j-1] == '*' {
-					memo[i][j] = memo[i][j-2]
-				} else {
-					memo[i][j] = false
-				}
-
-				continue
-			}
-
-			if s[i-1] == p[j-1] && memo[i-1][j-1] {
-				memo[i][j] = true
-			} else if p[j-1] == '.' {
-				memo[i][j] = memo[i-1][j-1]
-			} else if p[j-1] == '*' {
-				memo[i][j] = memo[i][j-2]
-				if p[j-2] == '.' || p[j-2] == s[i-1] {
-					memo[i][j] = memo[i][j] || memo[i-1][j]
-				}
-			}
+	for i := range n + 1 {
+		if i >= 2 && p[i-1] == '*' {
+			prev[i] = prev[i-2]
 		}
 	}
 
-	return memo[m][n]
+	for i := 1; i < m+1; i++ {
+		clear(curr)
+		for j := 1; j < n+1; j++ {
+			if s[i-1] == p[j-1] && prev[j-1] {
+				curr[j] = true
+			} else if p[j-1] == '.' {
+				curr[j] = prev[j-1]
+			} else if p[j-1] == '*' {
+				curr[j] = curr[j-2]
+				if p[j-2] == '.' || p[j-2] == s[i-1] {
+					curr[j] = curr[j] || prev[j]
+				}
+			}
+		}
+		prev, curr = curr, prev
+	}
+
+	return prev[n]
 }
