@@ -100,66 +100,46 @@ import "math"
 // - `s` consists of English letters (lower-case and upper-case), digits (`0 - 9`), `' '`, `'+'`, `'-'`, and `'.'`.
 
 func myAtoi(s string) int {
-	digits := []rune{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
+	// If s is empty return 0
+	if len(s) == 0 {
+		return 0
+	}
+
+	i := 0
+	// Remove leading whitespace spaces
+	for i < len(s) && s[i] == ' ' {
+		i++
+	}
+	// If s contains only leading white spaces return 0
+	if i >= len(s) {
+		return 0
+	}
 
 	sign := 1
-	result := 0
-	leading := ' '
-	for _, c := range s {
-		if !isValid(c) {
-			break
-		}
-
-		if result == 0 && leading == ' ' && c == ' ' {
-			continue
-		}
-
-		if leading == ' ' && isDigit(c) {
-			leading = '+'
-		}
-
-		if (c == '-' || c == '+') && leading == ' ' {
-			leading = c
-			continue
-		}
-
-		if leading != ' ' && !isDigit(c) {
-			break
-		}
-
-		if leading == '-' {
+	if s[i] == '-' || s[i] == '+' {
+		if s[i] == '-' {
 			sign = -1
 		}
+		i++
+	}
 
-		if isDigit(c) {
-			i := 0
-			for _, d := range digits {
-				if d == c {
-					break
-				}
-				i++
-			}
+	result := 0
+	for i < len(s) {
+		if s[i] >= '0' && s[i] <= '9' {
+			d := int(s[i] - '0')
 
-			if result > math.MaxInt32/10 || (result == math.MaxInt32/10 && i > 7) {
+			if result > math.MaxInt32/10 || (result == math.MaxInt32/10 && d > 7) {
 				if sign == 1 {
 					return math.MaxInt32
 				}
 				return math.MinInt32
 			}
-			result = result*10 + i
+			result = result*10 + d
+		} else {
+			break
 		}
+		i++
 	}
 
-	if leading == '-' {
-		result *= -1
-	}
-
-	return result
-}
-
-func isDigit(ch rune) bool {
-	return ch >= '0' && ch <= '9'
-}
-func isValid(ch rune) bool {
-	return ch == ' ' || ch == '+' || ch == '-' || (ch >= '0' && ch <= '9')
+	return result * sign
 }
