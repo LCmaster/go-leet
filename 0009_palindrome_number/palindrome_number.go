@@ -34,34 +34,15 @@ package palindromenumber
 // **Follow up:** Could you solve it without converting the integer to a string?
 
 func isPalindrome(x int) bool {
-	if x < 0 {
+	if x < 0 || (x%10 == 0 && x != 0) {
 		return false
 	}
-	if x == 0 {
-		return true
+
+	reverted := 0
+	for reverted < x {
+		reverted = reverted*10 + (x % 10)
+		x /= 10
 	}
 
-	n := x
-	digits := []int{}
-	for i := 0; n != 0; i++ {
-		digits = append(digits, n%10)
-		n /= 10
-	}
-
-	return testPalindrome(digits)
-
-}
-
-func testPalindrome(nums []int) bool {
-	if len(nums) == 0 {
-		return false
-	}
-	if len(nums) == 1 {
-		return true
-	}
-	if len(nums) == 2 {
-		return nums[0] == nums[1]
-	}
-
-	return nums[0] == nums[len(nums)-1] && testPalindrome(nums[1:len(nums)-1])
+	return reverted == x || reverted/10 == x
 }
