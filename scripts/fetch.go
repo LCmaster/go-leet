@@ -93,11 +93,20 @@ func main() {
 		os.Exit(1)
 	}
 
-	// 3. Determine directory name following the format: 0005_longest_palindromic_substring
+	// 3. Determine directory name following the format: 0001-0009/0005_longest_palindromic_substring
 	idNum, _ := strconv.Atoi(q.QuestionFrontendID)
 	folderSnake := strings.ReplaceAll(q.TitleSlug, "-", "_")
 	dirName := fmt.Sprintf("%04d_%s", idNum, folderSnake)
-	targetDir := filepath.Join(".", dirName)
+
+	var groupDir string
+	if idNum >= 1 && idNum <= 9 {
+		groupDir = "0001-0009"
+	} else {
+		start := (idNum / 10) * 10
+		end := start + 9
+		groupDir = fmt.Sprintf("%04d-%04d", start, end)
+	}
+	targetDir := filepath.Join(".", groupDir, dirName)
 
 	if err := os.MkdirAll(targetDir, 0755); err != nil {
 		fmt.Printf("Error creating directory %s: %v\n", targetDir, err)
