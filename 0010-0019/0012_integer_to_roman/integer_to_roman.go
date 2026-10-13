@@ -95,43 +95,17 @@ package integertoroman
 // **Constraints:**
 // - `1 <= num <= 3999`
 
+import "strings"
+
 func intToRoman(num int) string {
-	i := 0
-	result := ""
-	units := [][]string{
-		[]string{"I", "IV", "V", "IX"},
-		[]string{"X", "XL", "L", "XC"},
-		[]string{"C", "CD", "D", "CM"},
-		[]string{"M", "M", "M", "M"},
+	value := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	symbol := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+	var result strings.Builder
+	for i := 0; i < len(value); i++ {
+		for num >= value[i] {
+			result.WriteString(symbol[i])
+			num -= value[i]
+		}
 	}
-
-	for num > 0 {
-		digit := (num % 10)
-		repeat := digit % 5
-		acc := ""
-		pattern := ""
-		if digit < 4 {
-			pattern = units[i][0]
-		}
-		if digit == 4 {
-			pattern = units[i][1]
-			repeat = 1
-		}
-		if digit > 4 && digit < 9 {
-			acc = units[i][2]
-			pattern = units[i][0]
-		}
-		if digit == 9 {
-			pattern = units[i][3]
-			repeat = 1
-		}
-
-		for range repeat {
-			acc += pattern
-		}
-		result = acc + result
-		num /= 10
-		i++
-	}
-	return result
+	return result.String()
 }
