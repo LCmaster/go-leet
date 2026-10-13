@@ -41,7 +41,7 @@ func maxArea(height []int) int {
 		if area > total {
 			total = area
 		}
-		// Move the bottleneck pointer inward
+
 		if height[left] < height[right] {
 			left++
 		} else {
