@@ -1,8 +1,8 @@
 # LeetCode Go Solutions
 
-[![Solved](https://img.shields.io/badge/Solved-16-2ea44f?style=flat-square)](#problems-solved)
+[![Solved](https://img.shields.io/badge/Solved-17-2ea44f?style=flat-square)](#problems-solved)
 [![Easy](https://img.shields.io/badge/Easy-4-00b8a3?style=flat-square)](#problems-solved)
-[![Medium](https://img.shields.io/badge/Medium-10-ffc01e?style=flat-square)](#problems-solved)
+[![Medium](https://img.shields.io/badge/Medium-11-ffc01e?style=flat-square)](#problems-solved)
 [![Hard](https://img.shields.io/badge/Hard-2-ff375f?style=flat-square)](#problems-solved)
 
 This repository contains my solutions to LeetCode problems written in Go.
@@ -117,3 +117,4 @@ go run ./scripts/leetcode.go -sync
 | 14 | [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) | [longest_common_prefix.go](./0010-0019/0014_longest_common_prefix/longest_common_prefix.go) | Easy |
 | 15 | [3Sum](https://leetcode.com/problems/3sum/) | [threesum.go](./0010-0019/0015_threesum/threesum.go) | Medium |
 | 16 | [3Sum Closest](https://leetcode.com/problems/3sum-closest/) | [threesum_closest.go](./0010-0019/0016_threesum_closest/threesum_closest.go) | Medium |
+| 17 | [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) | [letter_combinations_of_a_phone_number.go](./0010-0019/0017_letter_combinations_of_a_phone_number/letter_combinations_of_a_phone_number.go) | Medium |
