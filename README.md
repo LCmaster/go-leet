@@ -23,19 +23,57 @@ To run all tests in the repository:
 go test ./...
 ```
 
-## How to Fetch a New Problem
+## LeetCode CLI
 
-You can download problem descriptions, examples, constraints, and starter code automatically:
+A single script handles fetching, testing and submitting problems:
 
 ```bash
-go run ./scripts/fetch.go <problem_number_or_slug>
+go run ./scripts/leetcode.go [-fetch] [-test] [-submit] <problem>
 ```
 
-Examples:
+`<problem>` can be a problem number (`16`), a slug (`3sum-closest`) or a path to the problem
+folder/file. Flags can be combined; they run in the order fetch → test → submit, and submit is
+skipped if the test fails.
+
+### Fetch a new problem
+
+Downloads the description, examples, constraints and Go starter code, and scaffolds the folder:
+
 ```bash
-go run ./scripts/fetch.go 5
-go run ./scripts/fetch.go longest-palindromic-substring
+go run ./scripts/leetcode.go -fetch 16
 ```
+
+### Configure cookies (required for `-test` / `-submit`)
+
+Copy `.env.example` to `.env` (it is git-ignored) and fill in:
+
+```env
+LEETCODE_SESSION=...
+LEETCODE_CSRFTOKEN=...
+```
+
+To get the values, log in to [leetcode.com](https://leetcode.com), open DevTools (F12) →
+**Application** (Chrome) / **Storage** (Firefox) → **Cookies** → `https://leetcode.com`,
+and copy the `LEETCODE_SESSION` and `csrftoken` cookies. They expire periodically; refresh them when the
+script reports you are not signed in.
+
+### Run against sample test cases ("Run Code")
+
+```bash
+go run ./scripts/leetcode.go -test 16
+go run ./scripts/leetcode.go -test 16 -input "[-1,2,1,-4]\n1"
+go run ./scripts/leetcode.go -test 16 -input-file cases.txt
+```
+
+### Submit
+
+```bash
+go run ./scripts/leetcode.go -submit 16
+go run ./scripts/leetcode.go -test -submit 16   # submit only if the samples pass
+```
+
+Before uploading, the `package` clause and local declarations of LeetCode's predefined types
+(`ListNode`, `TreeNode`, `Node`) are stripped automatically.
 
 ## Problems Solved
 
