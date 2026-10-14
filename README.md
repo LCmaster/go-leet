@@ -53,3 +53,4 @@ go run ./scripts/fetch.go longest-palindromic-substring
 | 10 | [Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/) | [regular_expression_matching.go](./0010-0019/0010_regular_expression_matching/regular_expression_matching.go) | Hard |
 | 11 | [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) | [container_with_most_water.go](./0010-0019/0011_container_with_most_water/container_with_most_water.go) | Medium |
 | 12 | [Integer to Roman](https://leetcode.com/problems/integer-to-roman/) | [integer_to_roman.go](./0010-0019/0012_integer_to_roman/integer_to_roman.go) | Medium |
+| 13 | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | [roman_to_integer.go](./0010-0019/0013_roman_to_integer/roman_to_integer.go) | Easy |
