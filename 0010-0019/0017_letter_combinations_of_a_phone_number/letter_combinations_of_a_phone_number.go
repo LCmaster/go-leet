@@ -25,6 +25,7 @@ package lettercombinationsofaphonenumber
 // - `digits[i]` is a digit in the range `['2', '9']`.
 
 var dic = []string{
+	'1': "",
 	'2': "abc",
 	'3': "def",
 	'4': "ghi",
@@ -39,18 +40,26 @@ func letterCombinations(digits string) []string {
 	if digits == "" {
 		return []string{}
 	}
-	return bfs("", 0, digits)
-}
-
-func bfs(root string, index int, digits string) []string {
 	m := len(digits)
-	result := []string{}
-	for _, c := range dic[digits[index]] {
-		if index < m-1 {
-			result = append(result, bfs(root+string(c), index+1, digits)...)
-		} else {
-			result = append(result, root+string(c))
+	total := 1
+	for i := range m {
+		total *= len(dic[digits[i]])
+	}
+	buff := make([]rune, m)
+	result := make([]string, 0, total)
+
+	var backtrack func(int)
+	backtrack = func(index int) {
+		if index == m {
+			result = append(result, string(buff))
+			return
+		}
+		for _, c := range dic[digits[index]] {
+			buff[index] = c
+			backtrack(index + 1)
 		}
 	}
+
+	backtrack(0)
 	return result
 }
