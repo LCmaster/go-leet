@@ -42,17 +42,31 @@ package threesum
 import "slices"
 
 func threeSum(nums []int) [][]int {
+	n := len(nums)
 	slices.Sort(nums)
 	result := [][]int{}
-	if len(nums) < 3 || nums[0] > 0 {
+	if n < 3 {
+		return result
+	}
+	// Check edge cases
+	if nums[0] > 0 || nums[n-1] < 0 {
 		return result
 	}
 
-	for i := 0; i < len(nums)-2; i++ {
+	for i := 0; i < n-2; i++ {
+		// Skip duplicates in nums[i]
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
-		j, k := i+1, len(nums)-1
+		// If smallest numbers > 0 then there's no point in continuing
+		if (nums[i] + nums[i+1] + nums[i+2]) > 0 {
+			break
+		}
+		// If smallest and greatest are < 0 then smallest are contributing too much to the sum
+		if nums[i]+nums[n-2]+nums[n-1] < 0 {
+			continue
+		}
+		j, k := i+1, n-1
 		for j < k {
 			sum := nums[i] + nums[j] + nums[k]
 			if sum == 0 {

@@ -102,6 +102,13 @@ func TestThreeSum(t *testing.T) {
 				{-2, 0, 2},
 			},
 		},
+		{
+			name: "Multiple zeros with mixed positive numbers",
+			nums: []int{1, 2, 0, 1, 0, 0, 0, 0},
+			want: [][]int{
+				{0, 0, 0},
+			},
+		},
 
 		// --- Strict Duplicate Suppression ---
 		{
