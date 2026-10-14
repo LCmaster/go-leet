@@ -54,24 +54,24 @@ package romantointeger
 // - It is **guaranteed**that `s` is a valid roman numeral in the range `[1, 3999]`.
 
 func romanToInt(s string) int {
-	dic := make(map[rune]int)
-	dic['M'] = 1000
-	dic['D'] = 500
-	dic['C'] = 100
-	dic['L'] = 50
-	dic['X'] = 10
-	dic['V'] = 5
-	dic['I'] = 1
+	dic := []int{
+		'M': 1000,
+		'D': 500,
+		'C': 100,
+		'L': 50,
+		'X': 10,
+		'V': 5,
+		'I': 1,
+	}
 
 	result := 0
-	prev := 9999
-	for _, c := range s {
-		val := dic[c]
-		result += val
-		if prev < val {
-			result -= 2 * prev
+	for i := 0; i < len(s); i++ {
+		curr := dic[s[i]]
+		if i+1 < len(s) && curr < dic[s[i+1]] {
+			result -= curr
+		} else {
+			result += curr
 		}
-		prev = val
 	}
 
 	return result
