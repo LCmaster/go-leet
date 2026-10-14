@@ -45,25 +45,32 @@ package validparentheses
 
 func isValid(s string) bool {
 	m := len(s)
-	buff := make([]int, 0, m)
-	value := []int{'(': 1, ')': -1, '[': 2, ']': -2, '{': 3, '}': -3}
+	buff := make([]byte, 0, m/2)
 
-	if m < 2 {
-		return false
-	}
-	if value[s[0]] < 0 && value[s[m-1]] > 0 {
+	if m%2 != 0 || s[0] == ')' || s[0] == ']' || s[0] == '}' || s[m-1] == '(' || s[m-1] == '[' || s[m-1] == '{' {
 		return false
 	}
 
-	for _, c := range s {
-		if value[c] > 0 {
-			buff = append(buff, value[c])
+	matchClose := func(b byte) (byte, bool) {
+		switch b {
+		case '(':
+			return ')', true
+		case '[':
+			return ']', true
+		case '{':
+			return '}', true
+		}
+		return 0, false
+	}
+
+	for i := range m {
+		if res, ok := matchClose(s[i]); ok {
+			buff = append(buff, res)
 		} else {
-			if len(buff) > 0 && value[c]+buff[len(buff)-1] == 0 {
-				buff = buff[:len(buff)-1]
-			} else {
+			if len(buff) == 0 || buff[len(buff)-1] != s[i] {
 				return false
 			}
+			buff = buff[:len(buff)-1]
 		}
 	}
 
