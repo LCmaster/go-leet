@@ -72,14 +72,29 @@ func TestLoadDotEnv(t *testing.T) {
 
 func TestPackageName(t *testing.T) {
 	tests := map[string]string{
-		"two_sum":      "twosum",
-		"3sum":         "threesum",
-		"3sum_closest": "threesumclosest",
-		"4sum_ii":      "foursumii",
+		"two_sum":          "twosum",
+		"3sum":             "threesum",
+		"threesum_closest": "threesumclosest",
+		"4sum_ii":          "foursumii",
 	}
 	for in, want := range tests {
 		if got := packageName(in); got != want {
 			t.Errorf("packageName(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
+
+func TestSnakeName(t *testing.T) {
+	tests := map[string]string{
+		"two-sum":      "two_sum",
+		"3sum":         "threesum",
+		"3sum-closest": "threesum_closest",
+		"4sum-ii":      "foursum_ii",
+		"132-pattern":  "onethreetwo_pattern",
+	}
+	for in, want := range tests {
+		if got := snakeName(in); got != want {
+			t.Errorf("snakeName(%q) = %q, want %q", in, got, want)
 		}
 	}
 }
@@ -99,3 +114,52 @@ func TestHTMLToMarkdownSup(t *testing.T) {
 		t.Errorf("got %q, want %q", got, want)
 	}
 }
+
+func TestMakeBar(t *testing.T) {
+	tests := []struct {
+		val, total, width int
+		want              string
+	}{
+		{0, 10, 5, "□□□□□"},
+		{5, 10, 10, "■■■■■□□□□□"},
+		{10, 10, 5, "■■■■■"},
+	}
+	for _, tc := range tests {
+		got := makeBar(tc.val, tc.total, tc.width)
+		if got != tc.want {
+			t.Errorf("makeBar(%d, %d, %d) = %q, want %q", tc.val, tc.total, tc.width, got, tc.want)
+		}
+	}
+}
+
+func TestScanRepoMock(t *testing.T) {
+	root := t.TempDir()
+	probDir := filepath.Join(root, "0001-0009", "0001_two_sum")
+	if err := os.MkdirAll(probDir, 0755); err != nil {
+		t.Fatal(err)
+	}
+	readmeContent := "# 1. Two Sum\n\n**Difficulty:** Easy\n\nProblem text..."
+	if err := os.WriteFile(filepath.Join(probDir, "README.md"), []byte(readmeContent), 0644); err != nil {
+		t.Fatal(err)
+	}
+	solContent := "package twosum\n\nfunc twoSum(nums []int, target int) []int {\n\treturn nil\n}\n"
+	if err := os.WriteFile(filepath.Join(probDir, "two_sum.go"), []byte(solContent), 0644); err != nil {
+		t.Fatal(err)
+	}
+	testContent := "package twosum\n\nimport \"testing\"\n\nfunc TestTwoSum(t *testing.T) {}\n"
+	if err := os.WriteFile(filepath.Join(probDir, "two_sum_test.go"), []byte(testContent), 0644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "README.md"), []byte("# LeetCode Go Solutions\n\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+
+	stats, err := scanRepo(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if stats.TotalSolved != 1 || stats.EasySolved != 1 {
+		t.Errorf("expected 1 total & 1 easy solved, got %+v", stats)
+	}
+}
+

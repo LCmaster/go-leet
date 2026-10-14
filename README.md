@@ -1,5 +1,10 @@
 # LeetCode Go Solutions
 
+[![Solved](https://img.shields.io/badge/Solved-16-2ea44f?style=flat-square)](#problems-solved)
+[![Easy](https://img.shields.io/badge/Easy-4-00b8a3?style=flat-square)](#problems-solved)
+[![Medium](https://img.shields.io/badge/Medium-10-ffc01e?style=flat-square)](#problems-solved)
+[![Hard](https://img.shields.io/badge/Hard-2-ff375f?style=flat-square)](#problems-solved)
+
 This repository contains my solutions to LeetCode problems written in Go.
 
 ## Structure
@@ -73,7 +78,24 @@ go run ./scripts/leetcode.go -test -submit 16   # submit only if the samples pas
 ```
 
 Before uploading, the `package` clause and local declarations of LeetCode's predefined types
-(`ListNode`, `TreeNode`, `Node`) are stripped automatically.
+(`ListNode`, `TreeNode`, `Node`) are stripped automatically. Upon an `Accepted` submission, the
+README.md table and progress badges are updated automatically.
+
+### Progress & Stats Tracker
+
+View a terminal breakdown of your repository progress and live LeetCode account statistics:
+
+```bash
+go run ./scripts/leetcode.go -stats
+```
+
+### Sync README.md
+
+Rescan all local solution directories and regenerate the statistics badges and "Problems Solved" table:
+
+```bash
+go run ./scripts/leetcode.go -sync
+```
 
 ## Problems Solved
 
@@ -94,3 +116,4 @@ Before uploading, the `package` clause and local declarations of LeetCode's pred
 | 13 | [Roman to Integer](https://leetcode.com/problems/roman-to-integer/) | [roman_to_integer.go](./0010-0019/0013_roman_to_integer/roman_to_integer.go) | Easy |
 | 14 | [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) | [longest_common_prefix.go](./0010-0019/0014_longest_common_prefix/longest_common_prefix.go) | Easy |
 | 15 | [3Sum](https://leetcode.com/problems/3sum/) | [threesum.go](./0010-0019/0015_threesum/threesum.go) | Medium |
+| 16 | [3Sum Closest](https://leetcode.com/problems/3sum-closest/) | [threesum_closest.go](./0010-0019/0016_threesum_closest/threesum_closest.go) | Medium |
