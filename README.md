@@ -1,8 +1,8 @@
 # LeetCode Go Solutions
 
-[![Solved](https://img.shields.io/badge/Solved-18-2ea44f?style=flat-square)](#problems-solved)
+[![Solved](https://img.shields.io/badge/Solved-19-2ea44f?style=flat-square)](#problems-solved)
 [![Easy](https://img.shields.io/badge/Easy-4-00b8a3?style=flat-square)](#problems-solved)
-[![Medium](https://img.shields.io/badge/Medium-12-ffc01e?style=flat-square)](#problems-solved)
+[![Medium](https://img.shields.io/badge/Medium-13-ffc01e?style=flat-square)](#problems-solved)
 [![Hard](https://img.shields.io/badge/Hard-2-ff375f?style=flat-square)](#problems-solved)
 
 This repository contains my solutions to LeetCode problems written in Go.
@@ -119,3 +119,4 @@ go run ./scripts/leetcode.go -sync
 | 16 | [3Sum Closest](https://leetcode.com/problems/3sum-closest/) | [threesum_closest.go](./0010-0019/0016_threesum_closest/threesum_closest.go) | Medium |
 | 17 | [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) | [letter_combinations_of_a_phone_number.go](./0010-0019/0017_letter_combinations_of_a_phone_number/letter_combinations_of_a_phone_number.go) | Medium |
 | 18 | [4Sum](https://leetcode.com/problems/4sum/) | [foursum.go](./0010-0019/0018_foursum/foursum.go) | Medium |
+| 19 | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [remove_nth_node_from_end_of_list.go](./0010-0019/0019_remove_nth_node_from_end_of_list/remove_nth_node_from_end_of_list.go) | Medium |
