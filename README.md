@@ -1,8 +1,8 @@
 # LeetCode Go Solutions
 
-[![Solved](https://img.shields.io/badge/Solved-21-2ea44f?style=flat-square)](#problems-solved)
+[![Solved](https://img.shields.io/badge/Solved-22-2ea44f?style=flat-square)](#problems-solved)
 [![Easy](https://img.shields.io/badge/Easy-6-00b8a3?style=flat-square)](#problems-solved)
-[![Medium](https://img.shields.io/badge/Medium-13-ffc01e?style=flat-square)](#problems-solved)
+[![Medium](https://img.shields.io/badge/Medium-14-ffc01e?style=flat-square)](#problems-solved)
 [![Hard](https://img.shields.io/badge/Hard-2-ff375f?style=flat-square)](#problems-solved)
 
 This repository contains my solutions to LeetCode problems written in Go.
@@ -13,7 +13,7 @@ This repository contains my solutions to LeetCode problems written in Go.
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **00** | | [🟩](./0001-0009/0001_two_sum/two_sum.go "1. Two Sum (Easy)") | [🟨](./0001-0009/0002_add_two_numbers/add_two_numbers.go "2. Add Two Numbers (Medium)") | [🟨](./0001-0009/0003_longest_substring/longest_substring.go "3. Longest Substring Without Repeating Characters (Medium)") | [🟥](./0001-0009/0004_mediam_of_two_sorted_arrays/mediam_of_two_sorted_arrays.go "4. Median of Two Sorted Arrays (Hard)") | [🟨](./0001-0009/0005_longest_palindromic_substring/longest_palindromic_substring.go "5. Longest Palindromic Substring (Medium)") | [🟨](./0001-0009/0006_zigzag_conversion/zigzag_conversion.go "6. Zigzag Conversion (Medium)") | [🟨](./0001-0009/0007_reverse_integer/reverse_integer.go "7. Reverse Integer (Medium)") | [🟨](./0001-0009/0008_string_to_integer_atoi/string_to_integer_atoi.go "8. String to Integer (atoi) (Medium)") | [🟩](./0001-0009/0009_palindrome_number/palindrome_number.go "9. Palindrome Number (Easy)") |
 | **10** | [🟥](./0010-0019/0010_regular_expression_matching/regular_expression_matching.go "10. Regular Expression Matching (Hard)") | [🟨](./0010-0019/0011_container_with_most_water/container_with_most_water.go "11. Container With Most Water (Medium)") | [🟨](./0010-0019/0012_integer_to_roman/integer_to_roman.go "12. Integer to Roman (Medium)") | [🟩](./0010-0019/0013_roman_to_integer/roman_to_integer.go "13. Roman to Integer (Easy)") | [🟩](./0010-0019/0014_longest_common_prefix/longest_common_prefix.go "14. Longest Common Prefix (Easy)") | [🟨](./0010-0019/0015_threesum/threesum.go "15. 3Sum (Medium)") | [🟨](./0010-0019/0016_threesum_closest/threesum_closest.go "16. 3Sum Closest (Medium)") | [🟨](./0010-0019/0017_letter_combinations_of_a_phone_number/letter_combinations_of_a_phone_number.go "17. Letter Combinations of a Phone Number (Medium)") | [🟨](./0010-0019/0018_foursum/foursum.go "18. 4Sum (Medium)") | [🟨](./0010-0019/0019_remove_nth_node_from_end_of_list/remove_nth_node_from_end_of_list.go "19. Remove Nth Node From End of List (Medium)") |
-| **20** | [🟩](./0020-0029/0020_valid_parentheses/valid_parentheses.go "20. Valid Parentheses (Easy)") | [🟩](./0020-0029/0021_merge_two_sorted_lists/merge_two_sorted_lists.go "21. Merge Two Sorted Lists (Easy)") | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| **20** | [🟩](./0020-0029/0020_valid_parentheses/valid_parentheses.go "20. Valid Parentheses (Easy)") | [🟩](./0020-0029/0021_merge_two_sorted_lists/merge_two_sorted_lists.go "21. Merge Two Sorted Lists (Easy)") | [🟨](./0020-0029/0022_generate_parentheses/generate_parentheses.go "22. Generate Parentheses (Medium)") | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
 
 🟩 Easy · 🟨 Medium · 🟥 Hard · 🟦 In progress · ⬜ Unsolved
 
@@ -43,6 +43,7 @@ This repository contains my solutions to LeetCode problems written in Go.
 | 19 | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [remove_nth_node_from_end_of_list.go](./0010-0019/0019_remove_nth_node_from_end_of_list/remove_nth_node_from_end_of_list.go) | Medium |
 | 20 | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | [valid_parentheses.go](./0020-0029/0020_valid_parentheses/valid_parentheses.go) | Easy |
 | 21 | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [merge_two_sorted_lists.go](./0020-0029/0021_merge_two_sorted_lists/merge_two_sorted_lists.go) | Easy |
+| 22 | [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) | [generate_parentheses.go](./0020-0029/0022_generate_parentheses/generate_parentheses.go) | Medium |
 
 </details>
 
