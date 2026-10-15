@@ -1,6 +1,5 @@
 package swapnodesinpairs
 
-
 // 24. Swap Nodes in Pairs
 //
 // Given alinked list, swap every two adjacent nodes and return its head. You must solve the problem withoutmodifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
@@ -42,24 +41,18 @@ type ListNode struct {
 }
 
 func swapPairs(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
+	currP := &head
 
-	dummy := &ListNode{Next: head}
-	prev := dummy
-	curr := head
-
-	for curr != nil && curr.Next != nil {
+	for *currP != nil && (*currP).Next != nil {
+		curr := *currP
 		nxt := curr.Next
 
 		curr.Next = nxt.Next
 		nxt.Next = curr
-		prev.Next = nxt
+		*currP = nxt
 
-		prev = curr
-		curr = curr.Next
+		currP = &curr.Next
 	}
 
-	return dummy.Next
+	return head
 }
