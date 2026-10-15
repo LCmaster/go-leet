@@ -1445,12 +1445,17 @@ func syncReadme(root string) (*RepoStats, error) {
 
 	var table strings.Builder
 	table.WriteString("## Problems Solved\n\n")
+	table.WriteString(buildProblemGrid(stats))
+	table.WriteString("\n🟩 Easy · 🟨 Medium · 🟥 Hard · 🟦 In progress · ⬜ Unsolved\n\n")
+
+	table.WriteString("<details>\n<summary>Full problem list</summary>\n\n")
 	table.WriteString("| # | Title | Solution | Difficulty |\n")
 	table.WriteString("|---|-------|----------|------------|\n")
 	for _, p := range stats.Solved {
 		table.WriteString(fmt.Sprintf("| %d | [%s](https://leetcode.com/problems/%s/) | [%s](%s) | %s |\n",
 			p.Num, p.Title, p.Slug, filepath.Base(p.FileRel), p.FileRel, p.Difficulty))
 	}
+	table.WriteString("\n</details>\n")
 
 	if len(stats.InProgress) > 0 {
 		table.WriteString("\n### In Progress\n\n")
@@ -1472,6 +1477,77 @@ func syncReadme(root string) (*RepoStats, error) {
 	}
 
 	return stats, nil
+}
+
+// buildProblemGrid renders a 2D markdown grid where each row is a decade
+// (00, 10, 20, ...) and each column a unit digit (0-9), so cell = row + col.
+// Solved problems are colored by difficulty and link to their solution, with
+// the number, title and difficulty shown as a hover tooltip.
+func buildProblemGrid(stats *RepoStats) string {
+	type cell struct {
+		info   ProblemInfo
+		solved bool
+	}
+	cells := map[int]cell{}
+	maxNum := 0
+	for _, p := range stats.Solved {
+		cells[p.Num] = cell{p, true}
+		maxNum = max(maxNum, p.Num)
+	}
+	for _, p := range stats.InProgress {
+		if _, ok := cells[p.Num]; !ok {
+			cells[p.Num] = cell{p, false}
+		}
+		maxNum = max(maxNum, p.Num)
+	}
+
+	square := func(c cell) string {
+		if !c.solved {
+			return "🟦"
+		}
+		switch strings.ToLower(c.info.Difficulty) {
+		case "easy":
+			return "🟩"
+		case "hard":
+			return "🟥"
+		default:
+			return "🟨"
+		}
+	}
+
+	var b strings.Builder
+	b.WriteString("| |")
+	for u := 0; u <= 9; u++ {
+		fmt.Fprintf(&b, " %d |", u)
+	}
+	b.WriteString("\n|:---:|")
+	for u := 0; u <= 9; u++ {
+		b.WriteString(":---:|")
+	}
+	b.WriteString("\n")
+
+	for dec := 0; dec <= maxNum; dec += 10 {
+		fmt.Fprintf(&b, "| **%02d** |", dec)
+		for u := 0; u <= 9; u++ {
+			num := dec + u
+			c, ok := cells[num]
+			switch {
+			case num == 0:
+				b.WriteString(" |")
+			case !ok:
+				b.WriteString(" ⬜ |")
+			default:
+				status := c.info.Difficulty
+				if !c.solved {
+					status = "In progress"
+				}
+				tip := strings.ReplaceAll(fmt.Sprintf("%d. %s (%s)", num, c.info.Title, status), `"`, "'")
+				fmt.Fprintf(&b, " [%s](%s \"%s\") |", square(c), c.info.FileRel, tip)
+			}
+		}
+		b.WriteString("\n")
+	}
+	return b.String()
 }
 
 // printStatsDashboard prints the formatted progress dashboard to standard out.
