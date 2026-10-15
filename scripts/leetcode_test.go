@@ -22,8 +22,9 @@ type ListNode struct {
 
 type helper struct{}
 
+/* block comment */
 func addTwoNumbers(l1, l2 *ListNode) *ListNode {
-	fmt.Println(helper{})
+	fmt.Println(helper{}) // inline comment
 	return nil
 }
 `
@@ -37,12 +38,12 @@ func addTwoNumbers(l1, l2 *ListNode) *ListNode {
 		t.Fatal(err)
 	}
 
-	for _, banned := range []string{"package ", "type ListNode", "predefined on LeetCode"} {
+	for _, banned := range []string{"package ", "type ListNode", "predefined on LeetCode", "Problem description", "block comment", "inline comment", "//", "/*"} {
 		if strings.Contains(got, banned) {
 			t.Errorf("output still contains %q:\n%s", banned, got)
 		}
 	}
-	for _, kept := range []string{"// Problem description.", `import "fmt"`, "type helper struct{}", "func addTwoNumbers"} {
+	for _, kept := range []string{`import "fmt"`, "type helper struct{}", "func addTwoNumbers", "\tfmt.Println(helper{})\n"} {
 		if !strings.Contains(got, kept) {
 			t.Errorf("output is missing %q:\n%s", kept, got)
 		}

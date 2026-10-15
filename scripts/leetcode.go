@@ -904,7 +904,8 @@ func htmlToMarkdown(htmlStr string) string {
 
 // prepareCode reads a local solution and converts it into the form LeetCode's
 // Go judge expects: no package clause and no redeclaration of predefined
-// helper types (ListNode, TreeNode, Node). Comments and imports are preserved.
+// helper types (ListNode, TreeNode, Node). All comments are stripped so the
+// submission contains only code; imports are preserved.
 func prepareCode(path string) (string, error) {
 	src, err := os.ReadFile(path)
 	if err != nil {
@@ -944,13 +945,33 @@ func prepareCode(path string) (string, error) {
 		cuts = append(cuts, span{start, off(gd.End())})
 	}
 
-	slices.SortFunc(cuts, func(a, b span) int { return b.start - a.start })
-	out := src
+	// Strip every comment (line, block, and doc comments).
+	for _, cg := range f.Comments {
+		cuts = append(cuts, span{off(cg.Pos()), off(cg.End())})
+	}
+
+	// Merge overlapping spans (e.g. comments inside a removed type decl).
+	slices.SortFunc(cuts, func(a, b span) int { return a.start - b.start })
+	merged := cuts[:0:0]
 	for _, c := range cuts {
+		if n := len(merged); n > 0 && c.start <= merged[n-1].end {
+			merged[n-1].end = max(merged[n-1].end, c.end)
+			continue
+		}
+		merged = append(merged, c)
+	}
+
+	out := src
+	for i := len(merged) - 1; i >= 0; i-- {
+		c := merged[i]
 		out = append(out[:c.start:c.start], out[c.end:]...)
 	}
 
-	code := regexp.MustCompile(`\n{3,}`).ReplaceAllString(string(out), "\n\n")
+	// Drop trailing whitespace left behind by inline comments, then collapse
+	// the blank lines left behind by removed comment blocks.
+	code := strings.ReplaceAll(string(out), "\r\n", "\n")
+	code = regexp.MustCompile(`(?m)[ \t]+$`).ReplaceAllString(code, "")
+	code = regexp.MustCompile(`\n{3,}`).ReplaceAllString(code, "\n\n")
 	return strings.TrimSpace(code) + "\n", nil
 }
 
