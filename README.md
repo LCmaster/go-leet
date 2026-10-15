@@ -1,7 +1,7 @@
 # LeetCode Go Solutions
 
-[![Solved](https://img.shields.io/badge/Solved-20-2ea44f?style=flat-square)](#problems-solved)
-[![Easy](https://img.shields.io/badge/Easy-5-00b8a3?style=flat-square)](#problems-solved)
+[![Solved](https://img.shields.io/badge/Solved-21-2ea44f?style=flat-square)](#problems-solved)
+[![Easy](https://img.shields.io/badge/Easy-6-00b8a3?style=flat-square)](#problems-solved)
 [![Medium](https://img.shields.io/badge/Medium-13-ffc01e?style=flat-square)](#problems-solved)
 [![Hard](https://img.shields.io/badge/Hard-2-ff375f?style=flat-square)](#problems-solved)
 
@@ -121,3 +121,4 @@ go run ./scripts/leetcode.go -sync
 | 18 | [4Sum](https://leetcode.com/problems/4sum/) | [foursum.go](./0010-0019/0018_foursum/foursum.go) | Medium |
 | 19 | [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [remove_nth_node_from_end_of_list.go](./0010-0019/0019_remove_nth_node_from_end_of_list/remove_nth_node_from_end_of_list.go) | Medium |
 | 20 | [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | [valid_parentheses.go](./0020-0029/0020_valid_parentheses/valid_parentheses.go) | Easy |
+| 21 | [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | [merge_two_sorted_lists.go](./0020-0029/0021_merge_two_sorted_lists/merge_two_sorted_lists.go) | Easy |
