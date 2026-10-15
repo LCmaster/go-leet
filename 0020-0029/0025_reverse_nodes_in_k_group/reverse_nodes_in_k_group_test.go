@@ -104,125 +104,125 @@ func TestReverseKGroup(t *testing.T) {
 			want: []int{2, 1},
 		},
 
-		// // --- 3. Exact Multiples of k (No Leftovers) ---
-		// {
-		// 	name: "Exact multiple: n = 4, k = 2",
-		// 	head: []int{1, 2, 3, 4},
-		// 	k:    2,
-		// 	want: []int{2, 1, 4, 3},
-		// },
-		// {
-		// 	name: "Exact multiple: n = 6, k = 3",
-		// 	head: []int{1, 2, 3, 4, 5, 6},
-		// 	k:    3,
-		// 	want: []int{3, 2, 1, 6, 5, 4},
-		// },
-		// {
-		// 	name: "Exact multiple: n = 8, k = 4",
-		// 	head: []int{1, 2, 3, 4, 5, 6, 7, 8},
-		// 	k:    4,
-		// 	want: []int{4, 3, 2, 1, 8, 7, 6, 5},
-		// },
+		// --- 3. Exact Multiples of k (No Leftovers) ---
+		{
+			name: "Exact multiple: n = 4, k = 2",
+			head: []int{1, 2, 3, 4},
+			k:    2,
+			want: []int{2, 1, 4, 3},
+		},
+		{
+			name: "Exact multiple: n = 6, k = 3",
+			head: []int{1, 2, 3, 4, 5, 6},
+			k:    3,
+			want: []int{3, 2, 1, 6, 5, 4},
+		},
+		{
+			name: "Exact multiple: n = 8, k = 4",
+			head: []int{1, 2, 3, 4, 5, 6, 7, 8},
+			k:    4,
+			want: []int{4, 3, 2, 1, 8, 7, 6, 5},
+		},
 
-		// // --- 4. Varying Leftover Counts ---
-		// {
-		// 	name: "n = 3, k = 2 (1 group of 2 + 1 leftover)",
-		// 	head: []int{1, 2, 3},
-		// 	k:    2,
-		// 	want: []int{2, 1, 3},
-		// },
-		// {
-		// 	name: "n = 5, k = 4 (1 group of 4 + 1 leftover)",
-		// 	head: []int{1, 2, 3, 4, 5},
-		// 	k:    4,
-		// 	want: []int{4, 3, 2, 1, 5},
-		// },
-		// {
-		// 	name: "n = 7, k = 3 (2 groups of 3 + 1 leftover)",
-		// 	head: []int{1, 2, 3, 4, 5, 6, 7},
-		// 	k:    3,
-		// 	want: []int{3, 2, 1, 6, 5, 4, 7},
-		// },
-		// {
-		// 	name: "n = 8, k = 3 (2 groups of 3 + 2 leftovers)",
-		// 	head: []int{1, 2, 3, 4, 5, 6, 7, 8},
-		// 	k:    3,
-		// 	want: []int{3, 2, 1, 6, 5, 4, 7, 8},
-		// },
+		// --- 4. Varying Leftover Counts ---
+		{
+			name: "n = 3, k = 2 (1 group of 2 + 1 leftover)",
+			head: []int{1, 2, 3},
+			k:    2,
+			want: []int{2, 1, 3},
+		},
+		{
+			name: "n = 5, k = 4 (1 group of 4 + 1 leftover)",
+			head: []int{1, 2, 3, 4, 5},
+			k:    4,
+			want: []int{4, 3, 2, 1, 5},
+		},
+		{
+			name: "n = 7, k = 3 (2 groups of 3 + 1 leftover)",
+			head: []int{1, 2, 3, 4, 5, 6, 7},
+			k:    3,
+			want: []int{3, 2, 1, 6, 5, 4, 7},
+		},
+		{
+			name: "n = 8, k = 3 (2 groups of 3 + 2 leftovers)",
+			head: []int{1, 2, 3, 4, 5, 6, 7, 8},
+			k:    3,
+			want: []int{3, 2, 1, 6, 5, 4, 7, 8},
+		},
 
-		// // --- 5. k Greater Than n (Safety Check) ---
-		// {
-		// 	name: "k > n: list remains unchanged (no complete group)",
-		// 	head: []int{1, 2},
-		// 	k:    3,
-		// 	want: []int{1, 2},
-		// },
-		// {
-		// 	name: "k > n with 4 nodes: k = 5",
-		// 	head: []int{1, 2, 3, 4},
-		// 	k:    5,
-		// 	want: []int{1, 2, 3, 4},
-		// },
+		// --- 5. k Greater Than n (Safety Check) ---
+		{
+			name: "k > n: list remains unchanged (no complete group)",
+			head: []int{1, 2},
+			k:    3,
+			want: []int{1, 2},
+		},
+		{
+			name: "k > n with 4 nodes: k = 5",
+			head: []int{1, 2, 3, 4},
+			k:    5,
+			want: []int{1, 2, 3, 4},
+		},
 
-		// // --- 6. Duplicate and Identical Node Values ---
-		// {
-		// 	name: "All identical values",
-		// 	head: []int{7, 7, 7, 7, 7},
-		// 	k:    2,
-		// 	want: []int{7, 7, 7, 7, 7},
-		// },
-		// {
-		// 	name: "Repeated pairs with k = 2",
-		// 	head: []int{1, 1, 2, 2, 3, 3},
-		// 	k:    2,
-		// 	want: []int{1, 1, 2, 2, 3, 3},
-		// },
-		// {
-		// 	name: "All zeros",
-		// 	head: []int{0, 0, 0, 0},
-		// 	k:    3,
-		// 	want: []int{0, 0, 0, 0},
-		// },
+		// --- 6. Duplicate and Identical Node Values ---
+		{
+			name: "All identical values",
+			head: []int{7, 7, 7, 7, 7},
+			k:    2,
+			want: []int{7, 7, 7, 7, 7},
+		},
+		{
+			name: "Repeated pairs with k = 2",
+			head: []int{1, 1, 2, 2, 3, 3},
+			k:    2,
+			want: []int{1, 1, 2, 2, 3, 3},
+		},
+		{
+			name: "All zeros",
+			head: []int{0, 0, 0, 0},
+			k:    3,
+			want: []int{0, 0, 0, 0},
+		},
 
-		// // --- 7. Boundary Constraint Values (0 <= Node.val <= 1000) ---
-		// {
-		// 	name: "Extreme values 0 and 1000 with k = 3",
-		// 	head: []int{0, 1000, 0, 1000, 0},
-		// 	k:    3,
-		// 	want: []int{0, 1000, 0, 1000, 0},
-		// },
-		// {
-		// 	name: "Alternating 0 and 1000 with k = 2",
-		// 	head: []int{0, 1000, 0, 1000},
-		// 	k:    2,
-		// 	want: []int{1000, 0, 1000, 0},
-		// },
+		// --- 7. Boundary Constraint Values (0 <= Node.val <= 1000) ---
+		{
+			name: "Extreme values 0 and 1000 with k = 3",
+			head: []int{0, 1000, 0, 1000, 0},
+			k:    3,
+			want: []int{0, 1000, 0, 1000, 0},
+		},
+		{
+			name: "Alternating 0 and 1000 with k = 2",
+			head: []int{0, 1000, 0, 1000},
+			k:    2,
+			want: []int{1000, 0, 1000, 0},
+		},
 
-		// // --- 8. Maximum Constraint Tests (n = 5000) ---
-		// {
-		// 	name: "Max constraint n = 5000, k = 1 (identity)",
-		// 	head: n5000,
-		// 	k:    1,
-		// 	want: n5000,
-		// },
-		// {
-		// 	name: "Max constraint n = 5000, k = 2 (2500 pairs swapped)",
-		// 	head: n5000,
-		// 	k:    2,
-		// 	want: wantK2,
-		// },
-		// {
-		// 	name: "Max constraint n = 5000, k = 5000 (full reverse)",
-		// 	head: n5000,
-		// 	k:    5000,
-		// 	want: wantK5000,
-		// },
-		// {
-		// 	name: "Max constraint n = 5000, k = 7 (714 groups + 2 leftovers)",
-		// 	head: n5000,
-		// 	k:    7,
-		// 	want: wantK7,
-		// },
+		// --- 8. Maximum Constraint Tests (n = 5000) ---
+		{
+			name: "Max constraint n = 5000, k = 1 (identity)",
+			head: n5000,
+			k:    1,
+			want: n5000,
+		},
+		{
+			name: "Max constraint n = 5000, k = 2 (2500 pairs swapped)",
+			head: n5000,
+			k:    2,
+			want: wantK2,
+		},
+		{
+			name: "Max constraint n = 5000, k = 5000 (full reverse)",
+			head: n5000,
+			k:    5000,
+			want: wantK5000,
+		},
+		{
+			name: "Max constraint n = 5000, k = 7 (714 groups + 2 leftovers)",
+			head: n5000,
+			k:    7,
+			want: wantK7,
+		},
 	}
 
 	for _, tt := range tests {
