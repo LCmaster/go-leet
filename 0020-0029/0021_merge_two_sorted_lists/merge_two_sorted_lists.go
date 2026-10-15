@@ -47,14 +47,10 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 		return list1
 	}
 
-	l1, l2 := sort(list1, list2)
-	return &ListNode{Val: l1.Val, Next: mergeTwoLists(l1.Next, l2)}
-}
-
-func sort(list1 *ListNode, list2 *ListNode) (*ListNode, *ListNode) {
 	if list1.Val <= list2.Val {
-		return list1, list2
-	} else {
-		return list2, list1
+		list1.Next = mergeTwoLists(list1.Next, list2)
+		return list1
 	}
+	list2.Next = mergeTwoLists(list1, list2.Next)
+	return list2
 }
