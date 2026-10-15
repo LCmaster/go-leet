@@ -1465,11 +1465,18 @@ func syncReadme(root string) (*RepoStats, error) {
 		}
 	}
 
-	reSolvedSec := regexp.MustCompile(`(?s)## Problems Solved.*$`)
-	if reSolvedSec.MatchString(content) {
-		content = reSolvedSec.ReplaceAllString(content, table.String())
+	section := table.String()
+	if start := strings.Index(content, "## Problems Solved"); start != -1 {
+		end := len(content)
+		if next := strings.Index(content[start+1:], "\n## "); next != -1 {
+			end = start + 1 + next + 1 // keep the newline before the next heading
+			section += "\n"
+		}
+		content = content[:start] + section + content[end:]
+	} else if idx := strings.Index(content, "## Structure"); idx != -1 {
+		content = content[:idx] + section + "\n" + content[idx:]
 	} else {
-		content = strings.TrimRight(content, "\n") + "\n\n" + table.String()
+		content = strings.TrimRight(content, "\n") + "\n\n" + section
 	}
 
 	if err := os.WriteFile(readmePath, []byte(content), 0o644); err != nil {
