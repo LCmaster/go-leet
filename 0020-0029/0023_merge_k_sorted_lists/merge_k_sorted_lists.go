@@ -1,7 +1,5 @@
 package mergeksortedlists
 
-import "math"
-
 // 23. Merge k Sorted Lists
 //
 // You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order.
@@ -51,9 +49,64 @@ type ListNode struct {
 	Next *ListNode
 }
 
+type MinHeap struct {
+	elements []*ListNode
+}
+
+func (h *MinHeap) Insert(key *ListNode) {
+	h.elements = append(h.elements, key)
+	h.heapifyUp(len(h.elements) - 1)
+}
+
+func (h *MinHeap) ExtractMin() *ListNode {
+	if len(h.elements) == 0 {
+		return nil
+	}
+
+	min := h.elements[0]
+	lastIndex := len(h.elements) - 1
+	h.elements[0] = h.elements[lastIndex]
+	h.elements = h.elements[:lastIndex]
+	h.heapifyDown(0)
+
+	return min
+}
+
+func (h *MinHeap) heapifyUp(index int) {
+	for index > 0 {
+		parentIndex := (index - 1) / 2
+		if h.elements[index].Val >= h.elements[parentIndex].Val {
+			break
+		}
+		h.elements[index], h.elements[parentIndex] = h.elements[parentIndex], h.elements[index]
+		index = parentIndex
+	}
+}
+
+func (h *MinHeap) heapifyDown(index int) {
+	lastIndex := len(h.elements) - 1
+
+	for {
+		leftChild := 2*index + 1
+		rightChild := 2*index + 2
+		smallest := index
+
+		if leftChild <= lastIndex && h.elements[leftChild].Val < h.elements[smallest].Val {
+			smallest = leftChild
+		}
+		if rightChild <= lastIndex && h.elements[rightChild].Val < h.elements[smallest].Val {
+			smallest = rightChild
+		}
+		if smallest == index {
+			break
+		}
+		h.elements[index], h.elements[smallest] = h.elements[smallest], h.elements[index]
+		index = smallest
+	}
+}
+
 func mergeKLists(lists []*ListNode) *ListNode {
 	m := len(lists)
-	head := &ListNode{}
 
 	if m == 0 {
 		return nil
@@ -62,26 +115,22 @@ func mergeKLists(lists []*ListNode) *ListNode {
 		return lists[0]
 	}
 
-	curr := head
-	for true {
-		minIndex := -1
-		minValue := math.MaxInt32
-		for i, l := range lists {
-			if l == nil {
-				continue
-			}
-			if l.Val < minValue {
-				minIndex = i
-				minValue = l.Val
-			}
+	heap := &MinHeap{}
+	for _, l := range lists {
+		if l != nil {
+			heap.Insert(l)
 		}
-		if minIndex < 0 {
-			break
-		}
-
-		curr.Next = lists[minIndex]
-		lists[minIndex] = lists[minIndex].Next
-		curr = curr.Next
 	}
+	head := &ListNode{}
+	curr := head
+	for len(heap.elements) > 0 {
+		minNode := heap.ExtractMin()
+		curr.Next = minNode
+		curr = curr.Next
+		if minNode.Next != nil {
+			heap.Insert(minNode.Next)
+		}
+	}
+
 	return head.Next
 }
