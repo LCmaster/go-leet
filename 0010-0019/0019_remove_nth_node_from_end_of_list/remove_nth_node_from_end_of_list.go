@@ -40,22 +40,16 @@ type ListNode struct {
 }
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	reversed := reverse(head)
-	temp := &ListNode{Next: reversed}
-	curr := temp
-	for i := 1; i < n; i++ {
-		curr = curr.Next
+	fast := head
+	for range n {
+		fast = fast.Next
 	}
-	curr.Next = curr.Next.Next
-
-	return reverse(temp.Next)
-}
-
-func reverse(head *ListNode) *ListNode {
-	var prev *ListNode
-	curr := head
-	for curr != nil {
-		curr.Next, prev, curr = prev, curr, curr.Next
+	slow := &head
+	for fast != nil {
+		fast = fast.Next
+		slow = &(*slow).Next
 	}
-	return prev
+	// Unlink the target node directly (even if it's the head!)
+	*slow = (*slow).Next
+	return head
 }
