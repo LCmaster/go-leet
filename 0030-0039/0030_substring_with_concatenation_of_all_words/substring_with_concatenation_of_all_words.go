@@ -57,14 +57,19 @@ func findSubstring(s string, words []string) []int {
 	wordLength := len(words[0])
 	subStringLength := wordLength * wordsCount
 
-	indices := []int{}
+	if n < subStringLength {
+		return nil
+	}
+
 	frequencyMap := make(map[string]int)
 	for _, word := range words {
 		frequencyMap[word]++
 	}
 
+	indices := []int{}
+	localMap := make(map[string]int)
 	for i := 0; i <= n-subStringLength; i++ {
-		localMap := make(map[string]int)
+		clear(localMap)
 		subString := s[i : i+subStringLength]
 		for j := 0; j < subStringLength; j += wordLength {
 			word := subString[j : j+wordLength]
