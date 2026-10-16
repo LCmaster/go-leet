@@ -1,6 +1,9 @@
 package dividetwointegers
 
-import "math"
+import (
+	"math"
+	"math/bits"
+)
 
 // 29. Divide Two Integers
 //
@@ -31,37 +34,34 @@ import "math"
 // **Constraints:**
 // - `-2^31 <= dividend, divisor <= 2^31 - 1`
 // - `divisor != 0`
+func absU32(n int) uint32 {
+	if n < 0 {
+		return uint32(-n)
+	}
+	return uint32(n)
+}
 
 func divide(dividend int, divisor int) int {
-
 	isNegative := (dividend < 0) != (divisor < 0)
-
-	if dividend < 0 {
-		dividend = -dividend
-	}
-	if divisor < 0 {
-		divisor = -divisor
+	dvd, dvs := absU32(dividend), absU32(divisor)
+	if dvd < dvs {
+		return 0
 	}
 
-	quotient := 0
-	for dividend >= divisor {
-		shift := 0
-		for dividend >= (divisor << (shift + 1)) {
-			shift++
+	var quotient uint32
+	shift := bits.Len32(dvd) - bits.Len32(dvs)
+	for i := shift; i >= 0; i-- {
+		if (dvd >> i) >= dvs {
+			dvd -= dvs << i
+			quotient += 1 << i
 		}
-		dividend -= divisor << shift
-		quotient += 1 << shift
 	}
 
 	if isNegative {
-		quotient = -quotient
+		return -int(quotient)
 	}
-
 	if quotient > math.MaxInt32 {
 		return math.MaxInt32
-	} else if quotient < math.MinInt32 {
-		return math.MinInt32
 	}
-
-	return quotient
+	return int(quotient)
 }
