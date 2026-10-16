@@ -26,8 +26,9 @@ package findtheindexofthefirstoccurrenceinastring
 // - `haystack` and `needle` consist of only lowercase English characters.
 
 func strStr(haystack string, needle string) int {
-	for i := 0; i < len(haystack) && len(needle) <= len(haystack[i:]); i++ {
-		if needle == haystack[i:i+len(needle)] {
+	n, h := len(needle), len(haystack)
+	for i := 0; i <= h-n; i++ {
+		if needle == haystack[i:i+n] {
 			return i
 		}
 	}
