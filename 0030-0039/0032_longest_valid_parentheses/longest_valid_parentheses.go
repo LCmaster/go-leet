@@ -32,16 +32,18 @@ package longestvalidparentheses
 // - `s[i]` is `'('`, or `')'`.
 func longestValidParentheses(s string) int {
 	maxValid := 0
-	buff := []int{-1}
+	buff := make([]int, 0, len(s)+1)
+	buff = append(buff, -1)
 	for i := range len(s) {
 		if s[i] == '(' {
 			buff = append(buff, i)
 		} else {
 			buff = buff[:len(buff)-1]
-			if len(buff) == 0 {
+			size := len(buff)
+			if size == 0 {
 				buff = append(buff, i)
 			} else {
-				length := i - buff[len(buff)-1]
+				length := i - buff[size-1]
 				if length > maxValid {
 					maxValid = length
 				}
