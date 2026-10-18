@@ -100,11 +100,6 @@ import "math"
 // - `s` consists of English letters (lower-case and upper-case), digits (`0 - 9`), `' '`, `'+'`, `'-'`, and `'.'`.
 
 func myAtoi(s string) int {
-	// If s is empty return 0
-	if len(s) == 0 {
-		return 0
-	}
-
 	i := 0
 	// Remove leading whitespace spaces
 	for i < len(s) && s[i] == ' ' {
