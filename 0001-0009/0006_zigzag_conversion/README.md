@@ -2,6 +2,8 @@
 
 **Difficulty:** Medium
 
+## Description
+
 The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
 
 ```text
@@ -18,33 +20,18 @@ Write the code that will take a string and make this conversion given a number o
 string convert(string s, int numRows);
 ```
 
-Example 1:
+## Solution
+We can calculate the row indices mathematically without simulating the grid:
 
-```text
-Input: s = "PAYPALISHIRING", numRows = 3
-Output: "PAHNAPLSIIGYIR"
-```
+- If `numRows == 1` or `numRows >= len(s)`, return `s` directly.
+- Each full zigzag cycle spans `cycle = 2 * numRows - 2` characters.
+- Iterate through each row from `0` to `numRows - 1` and jump by `cycle`:
+  - Append the primary character at `i`.
+  - For inner rows (`0 < row < numRows - 1`), append the diagonal character at `i + (cycle - 2 * row)` if within bounds.
+- Return the reconstructed string.
 
-Example 2:
-
-```text
-Input: s = "PAYPALISHIRING", numRows = 4
-Output: "PINALSIGYAHRPI"
-Explanation:
-P     I    N
-A   L S  I G
-Y A   H R
-P     I
-```
-
-Example 3:
-
-```text
-Input: s = "A", numRows = 1
-Output: "A"
-```
-
-**Constraints:**
-- `1 <= s.length <= 1000`
-- `s` consists of English letters (lower-case and upper-case), `','` and `'.'`.
-- `1 <= numRows <= 1000`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(1)$ |
+| Visits each character of the string of length $n$ exactly once | Auxiliary space ($O(n)$ to construct the returned string) |
