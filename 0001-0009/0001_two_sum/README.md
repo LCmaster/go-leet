@@ -13,5 +13,7 @@ If complement is already in `seen`, we found our pair: return `[seen[complement]
 Otherwise, record the current element: `seen[num] = i`.
 
 **Complexity:**
-- Time: $O(n)$ — single pass over the array with $O(1)$ map lookups.
-- Space: $O(n)$ — to store up to $n$ elements in the map.
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(n)$ |
+| Single pass over the array with $O(1)$ map lookups | Stores up to $n$ elements in the map |
