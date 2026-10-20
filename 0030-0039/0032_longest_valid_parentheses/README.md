@@ -2,31 +2,23 @@
 
 **Difficulty:** Hard
 
-Given a string containing just the characters `'('` and `')'`, return *the length of the longest valid (well-formed) parentheses **substring*.
+## Description
 
-Example 1:
+Given a string containing just the characters `'('` and `')'`, return the length of the longest valid (well-formed) parentheses substring.
 
-```text
-Input: s = "(()"
-Output: 2
-Explanation: The longest valid parentheses substring is "()".
-```
+## Solution
+We can use a stack storing indices to compute valid substring lengths:
 
-Example 2:
+- Preallocate and push `-1` onto the index stack as a base boundary for valid substrings.
+- Iterate through index `i` of the string:
+  - If `s[i] == '('`, push `i` onto the stack.
+  - If `s[i] == ')'`, pop the top index:
+    - If the stack is now empty, push current index `i` as the new base boundary.
+    - Otherwise, compute `length = i - stack.top()` and update `maxValid = max(maxValid, length)`.
+- Return `maxValid`.
 
-```text
-Input: s = ")()())"
-Output: 4
-Explanation: The longest valid parentheses substring is "()()".
-```
-
-Example 3:
-
-```text
-Input: s = ""
-Output: 0
-```
-
-**Constraints:**
-- `0 <= s.length <= 3 * 10^4`
-- `s[i]` is `'('`, or `')'`.
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(n)$ |
+| Single pass over the string of length $n$ | Preallocated stack storing at most $n + 1$ indices |
