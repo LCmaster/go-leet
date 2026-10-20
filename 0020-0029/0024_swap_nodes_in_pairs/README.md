@@ -2,34 +2,22 @@
 
 **Difficulty:** Medium
 
-Given alinked list, swap every two adjacent nodes and return its head. You must solve the problem withoutmodifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+## Description
 
-Example 1:
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed).
 
-**Input:** head = [1,2,3,4]
+## Solution
+We can iterate using a pointer-to-pointer to rewire nodes in-place:
 
-**Output:** [2,1,4,3]
+- Initialize `currP := &head` to point to the incoming pointer of the current pair.
+- While `*currP != nil && (*currP).Next != nil`:
+  - Let `curr = *currP` and `nxt = curr.Next`.
+  - Rewire: `curr.Next = nxt.Next`, `nxt.Next = curr`, and `*currP = nxt`.
+  - Advance `currP = &curr.Next` to the next pair.
+- Return `head`.
 
-**Explanation:**
-
-Example 2:
-
-**Input:** head = []
-
-**Output:** []
-
-Example 3:
-
-**Input:** head = [1]
-
-**Output:** [1]
-
-Example 4:
-
-**Input:** head = [1,2,3]
-
-**Output:** [2,1,3]
-
-**Constraints:**
-- The number of nodes in thelistis in the range `[0, 100]`.
-- `0 <= Node.val <= 100`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(1)$ |
+| Single pass through the linked list of length $n$ | In-place pointer updates with no extra allocations |

@@ -2,6 +2,8 @@
 
 **Difficulty:** Easy
 
+## Description
+
 Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.
 
 An input string is valid if:
@@ -9,36 +11,17 @@ An input string is valid if:
 - Open brackets must be closed in the correct order.
 - Every close bracket has a corresponding open bracket of the same type.
 
-Example 1:
+## Solution
+We can use a stack to track open brackets and match them with incoming closing brackets:
 
-**Input:** s = "()"
+- Perform quick parity and boundary checks (e.g. odd length or starting with closing bracket returns `false`).
+- Iterate through each character in `s`:
+  - If it is an opening bracket (`'('`, `'['`, `'{'`), push its corresponding closing bracket (`')'`, `']'`, `'}'`) onto the stack.
+  - If it is a closing bracket, check that the stack is non-empty and the top of the stack matches; pop from the stack.
+- Return `true` if the stack is empty after processing the entire string.
 
-**Output:** true
-
-Example 2:
-
-**Input:** s = "()[]{}"
-
-**Output:** true
-
-Example 3:
-
-**Input:** s = "(]"
-
-**Output:** false
-
-Example 4:
-
-**Input:** s = "([])"
-
-**Output:** true
-
-Example 5:
-
-**Input:** s = "([)]"
-
-**Output:** false
-
-**Constraints:**
-- `1 <= s.length <= 10^4`
-- `s` consists of parentheses only `'()[]{}'`.
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(n)$ |
+| Single pass over the string of length $n$ | Stack stores at most $n / 2$ expected closing brackets |

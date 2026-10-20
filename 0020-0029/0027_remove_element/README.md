@@ -2,46 +2,21 @@
 
 **Difficulty:** Easy
 
-Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` **in-place**. The order of the elements may be changed. Then return *the number of elements in *`nums`* which are not equal to *`val`.
+## Description
 
-Consider the number of elements in `nums` which are not equal to `val` be `k`, to get accepted, you need to do the following things:
-- Change the array `nums` such that the first `k` elements of `nums` contain the elements which are not equal to `val`. The remaining elements of `nums` are not important as well as the size of `nums`.
-- Return `k`.
+Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` in-place. The order of the elements may be changed. Then return the number of elements in `nums` which are not equal to `val`.
 
-**Custom Judge:**
+## Solution
+We can use a two-pointer approach swapping target elements with the end of the array:
 
-The judge will test your solution with the following code:
+- Initialize `i = 0` and `j = len(nums)`.
+- While `i < j`:
+  - If `nums[i] == val`, swap `nums[i]` with the last unexamined element `nums[j - 1]` and decrement `j`.
+  - Otherwise, increment `i`.
+- Return `j`, which represents the count of valid elements.
 
-```text
-int[] nums = [...]; // Input array
-int val = ...; // Value to remove
-int[] expectedNums = [...]; // The expected answer with correct length.
-                            // It is sorted with no values equaling val.
-
-int k = removeElement(nums, val); // Calls your implementation
-
-assert k == expectedNums.length;
-sort(nums, 0, k); // Sort the first k elements of nums
-for (int i = 0; i Example 1:
-
-```text
-Input: nums = [3,2,2,3], val = 3
-Output: 2, nums = [2,2,_,_]
-Explanation: Your function should return k = 2, with the first two elements of nums being 2.
-It does not matter what you leave beyond the returned k (hence they are underscores).
-```
-
-Example 2:
-
-```text
-Input: nums = [0,1,2,2,3,0,4,2], val = 2
-Output: 5, nums = [0,1,4,0,3,_,_,_]
-Explanation: Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.
-Note that the five elements can be returned in any order.
-It does not matter what you leave beyond the returned k (hence they are underscores).
-```
-
-**Constraints:**
-- `0 <= nums.length <= 100`
-- `0 <= nums[i] <= 50`
-- `0 <= val <= 100`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(1)$ |
+| Pointers `i` and `j` traverse at most $n$ elements combined | In-place swaps with no extra memory allocated |

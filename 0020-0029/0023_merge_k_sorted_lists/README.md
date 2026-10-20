@@ -2,43 +2,24 @@
 
 **Difficulty:** Hard
 
+## Description
+
 You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order.
 
-*Merge all the linked-lists into one sorted linked-list and return it.*
+Merge all the linked-lists into one sorted linked-list and return it.
 
-Example 1:
+## Solution
+We can use a Min-Heap (Priority Queue) to always pick the smallest available node:
 
-```text
-Input: lists = [[1,4,5],[1,3,4],[2,6]]
-Output: [1,1,2,3,4,4,5,6]
-Explanation: The linked-lists are:
-[
-  1->4->5,
-  1->3->4,
-  2->6
-]
-merging them into one sorted linked list:
-1->1->2->3->4->4->5->6
-```
+- Insert the head node of each non-empty list into the min-heap.
+- Use a dummy head node and pointer `curr = dummy`.
+- Repeatedly extract the minimum node from the heap:
+  - Attach the extracted node to `curr.Next` and advance `curr`.
+  - If the extracted node has a next node (`minNode.Next != nil`), insert `minNode.Next` into the heap.
+- Return `dummy.Next`.
 
-Example 2:
-
-```text
-Input: lists = []
-Output: []
-```
-
-Example 3:
-
-```text
-Input: lists = [[]]
-Output: []
-```
-
-**Constraints:**
-- `k == lists.length`
-- `0 <= k <= 10^4`
-- `0 <= lists[i].length <= 500`
-- `-10^4 <= lists[i][j] <= 10^4`
-- `lists[i]` is sorted in **ascending order**.
-- The sum of `lists[i].length` will not exceed `10^4`.
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(N \log k)$ | $O(k)$ |
+| Where $N$ is total nodes and $k$ is number of lists; each heap operation takes $O(\log k)$ | Heap holds at most $k$ elements simultaneously |

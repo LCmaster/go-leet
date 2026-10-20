@@ -2,30 +2,26 @@
 
 **Difficulty:** Medium
 
-Given two integers `dividend` and `divisor`, divide two integers **without** using multiplication, division, and mod operator.
+## Description
 
-The integer division should truncate toward zero, which means losing its fractional part. For example, `8.345` would be truncated to `8`, and `-2.7335` would be truncated to `-2`.
+Given two integers `dividend` and `divisor`, divide two integers without using multiplication, division, and mod operator.
 
-Return *the **quotient** after dividing *`dividend`* by *`divisor`.
+The integer division should truncate toward zero, which means losing its fractional part.
 
-**Note: **Assume we are dealing with an environment that could only store integers within the **32-bit** signed integer range: `[−2^31, 2^31 − 1]`. For this problem, if the quotient is **strictly greater than** `2^31 - 1`, then return `2^31 - 1`, and if the quotient is **strictly less than** `-2^31`, then return `-2^31`.
+Return the quotient after dividing `dividend` by `divisor`. If the quotient exceeds the 32-bit signed integer range `[-2^31, 2^31 - 1]`, clamp it to remain within bounds.
 
-Example 1:
+## Solution
+We can use bit manipulation to simulate long division:
 
-```text
-Input: dividend = 10, divisor = 3
-Output: 3
-Explanation: 10/3 = 3.33333.. which is truncated to 3.
-```
+- Record the sign and convert `dividend` and `divisor` to `uint32` using absolute values.
+- If `dividend < divisor`, return `0`.
+- Calculate maximum bit-shift offset via bit length (`bits.Len32(dvd) - bits.Len32(dvs)`).
+- Loop downwards from `shift` to `0`:
+  - If `(dvd >> i) >= dvs`, subtract `dvs << i` from `dvd` and add `1 << i` to `quotient`.
+- Apply the sign and clamp results overflowing `math.MaxInt32`.
 
-Example 2:
-
-```text
-Input: dividend = 7, divisor = -3
-Output: -2
-Explanation: 7/-3 = -2.33333.. which is truncated to -2.
-```
-
-**Constraints:**
-- `-2^31 <= dividend, divisor <= 2^31 - 1`
-- `divisor != 0`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(\log(\text{dividend}))$ | $O(1)$ |
+| At most 32 bit-shift iterations for 32-bit integers | Constant extra space using integer bit shifts |

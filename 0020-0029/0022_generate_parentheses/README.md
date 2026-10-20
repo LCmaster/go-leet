@@ -2,21 +2,21 @@
 
 **Difficulty:** Medium
 
-Given `n` pairs of parentheses, write a function to *generate all combinations of well-formed parentheses*.
+## Description
 
-Example 1:
+Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-```text
-Input: n = 3
-Output: ["((()))","(()())","(())()","()(())","()()()"]
-```
+## Solution
+We can generate all valid combinations using backtracking:
 
-Example 2:
+- Start with an empty string and track the count of open brackets `i` and closed brackets `j`.
+- If `i < n`, we can place an opening bracket `'('` and recurse with `i + 1`.
+- If `j < i`, we can place a closing bracket `')'` and recurse with `j + 1`.
+- When `i == n && j == n`, append the constructed string to `result`.
+- Return `result`.
 
-```text
-Input: n = 1
-Output: ["()"]
-```
-
-**Constraints:**
-- `1 <= n <= 8`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(\frac{4^n}{\sqrt{n}})$ | $O(n)$ |
+| Bounded by the $n^{\text{th}}$ Catalan number $\frac{1}{n+1}\binom{2n}{n}$ | Recursion stack depth is $2n$ (excluding output combinations) |
