@@ -6,31 +6,16 @@
 
 Given a string `s`, find the length of the longest substring without duplicate characters.
 
-## Examples
+## Solution
+We can solve this in a single pass using a sliding window and a hash map:
 
-**Example 1:**
-```text
-Input: s = "abcabcbb"
-Output: 3
-Explanation: The answer is "abc", with the length of 3. Note that "bca" and "cab" are also correct answers.
-```
+- Maintain a map `charIndexMap` storing each character's latest index and a `start` pointer for the window boundary.
+- For each character `char` at index `i`, if it was previously seen at or after `start`, move `start` to `index + 1`.
+- Update `charIndexMap[char] = i` and update `maxLength` with `i - start + 1`.
+- Return `maxLength`.
 
-**Example 2:**
-```text
-Input: s = "bbbbb"
-Output: 1
-Explanation: The answer is "b", with the length of 1.
-```
-
-**Example 3:**
-```text
-Input: s = "pwwkew"
-Output: 3
-Explanation: The answer is "wke", with the length of 3.
-Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
-```
-
-## Constraints
-
-- `0 <= s.length <= 10^5`
-- `s` consists of English letters, digits, symbols and spaces.
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n)$ | $O(\min(n, m))$ |
+| Single pass over the string with $O(1)$ map operations | Stores unique characters in the map, bounded by string length $n$ and alphabet size $m$ |
