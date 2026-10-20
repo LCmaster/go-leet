@@ -2,39 +2,26 @@
 
 **Difficulty:** Medium
 
+## Description
+
 Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
 
 Notice that the solution set must not contain duplicate triplets.
 
-Example 1:
+## Solution
+We can sort the array and use the two-pointer approach with pruning:
 
-```text
-Input: nums = [-1,0,1,2,-1,-4]
-Output: [[-1,-1,2],[-1,0,1]]
-Explanation: 
-nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
-nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
-nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
-The distinct triplets are [-1,0,1] and [-1,-1,2].
-Notice that the order of the output and the order of the triplets does not matter.
-```
+- Sort `nums` in ascending order.
+- Iterate `i` from `0` to `n - 3`:
+  - Skip duplicate values for `nums[i]`.
+  - Prune early if `nums[i] + nums[i+1] + nums[i+2] > 0` (no further sums can equal 0) or `nums[i] + nums[n-2] + nums[n-1] < 0` (current number is too small).
+  - Use two pointers `j = i + 1` and `k = n - 1` to find pairs where `nums[i] + nums[j] + nums[k] == 0`.
+  - When a triplet is found, append it and advance `j` and `k` past duplicate elements.
+  - If the sum is less than 0, increment `j`; if greater than 0, decrement `k`.
+- Return the list of unique triplets.
 
-Example 2:
-
-```text
-Input: nums = [0,1,1]
-Output: []
-Explanation: The only possible triplet does not sum up to 0.
-```
-
-Example 3:
-
-```text
-Input: nums = [0,0,0]
-Output: [[0,0,0]]
-Explanation: The only possible triplet sums up to 0.
-```
-
-**Constraints:**
-- `3 <= nums.length <= 3000`
-- `-105 <= nums[i] <= 105`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(n^2)$ | $O(1)$ |
+| Sorting takes $O(n \log n)$ and the two-pointer search takes $O(n^2)$ | Auxiliary space (excluding the output triplets list) |

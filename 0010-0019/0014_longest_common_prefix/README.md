@@ -2,26 +2,23 @@
 
 **Difficulty:** Easy
 
+## Description
+
 Write a function to find the longest common prefix string amongst an array of strings.
 
 If there is no common prefix, return an empty string `""`.
 
-Example 1:
+## Solution
+We can use vertical scanning across all strings:
 
-```text
-Input: strs = ["flower","flow","flight"]
-Output: "fl"
-```
+- Determine the length of the shortest string in `strs` to set the maximum possible prefix length.
+- Iterate column by column (index `i` from `0` to `shortest - 1`):
+  - Compare character `strs[0][i]` against `strs[j][i]` for every remaining string.
+  - If a mismatch is found, return `strs[0][:i]`.
+- If no mismatch occurs, return `strs[0][:shortest]`.
 
-Example 2:
-
-```text
-Input: strs = ["dog","racecar","car"]
-Output: ""
-Explanation: There is no common prefix among the input strings.
-```
-
-**Constraints:**
-- `1 <= strs.length <= 200`
-- `0 <= strs[i].length <= 200`
-- `strs[i]` consists of only lowercase English letters if it is non-empty.
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(S)$ | $O(1)$ |
+| Where $S$ is the sum of characters across all strings (at most $n \cdot \min(\text{len})$) | Constant extra space |

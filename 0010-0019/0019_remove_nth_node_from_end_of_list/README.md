@@ -2,33 +2,21 @@
 
 **Difficulty:** Medium
 
-Given the `head` of a linked list, remove the `n^th` node from the end of the list and return its head.
+## Description
 
-Example 1:
+Given the `head` of a linked list, remove the $n^{\text{th}}$ node from the end of the list and return its head.
 
-```text
-Input: head = [1,2,3,4,5], n = 2
-Output: [1,2,3,5]
-```
+## Solution
+We can use fast and slow pointers with a pointer-to-pointer:
 
-Example 2:
+- Advance a `fast` pointer $n$ steps into the list.
+- Initialize `slow` as a pointer to the head pointer (`slow := &head`).
+- Advance both `fast` and `slow` together until `fast == nil`.
+- At this point, `*slow` points directly to the target node's address. Unlink it via `*slow = (*slow).Next`.
+- Return `head`.
 
-```text
-Input: head = [1], n = 1
-Output: []
-```
-
-Example 3:
-
-```text
-Input: head = [1,2], n = 1
-Output: [1]
-```
-
-**Constraints:**
-- The number of nodes in the list is `sz`.
-- `1 <= sz <= 30`
-- `0 <= Node.val <= 100`
-- `1 <= n <= sz`
-
-**Follow up:** Could you do this in one pass?
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(L)$ | $O(1)$ |
+| Single pass over the linked list of length $L$ | Uses only pointer references without extra allocations |

@@ -2,95 +2,22 @@
 
 **Difficulty:** Medium
 
-Seven different symbols represent Roman numerals with the following values:
+## Description
 
-	
-		
-			Symbol
-			Value
-		
-	
-	
-		
-			I
-			1
-		
-		
-			V
-			5
-		
-		
-			X
-			10
-		
-		
-			L
-			50
-		
-		
-			C
-			100
-		
-		
-			D
-			500
-		
-		
-			M
-			1000
-		
-	
-
-Roman numerals are formed by appendingthe conversions ofdecimal place valuesfrom highest to lowest. Converting a decimal place value into a Roman numeral has the following rules:
-- If the value does not start with 4 or9, select the symbol of the maximal value that can be subtracted from the input, append that symbol to the result, subtract its value, and convert the remainder to a Roman numeral.
-- If the value starts with 4 or 9 use the**subtractive form**representingone symbol subtracted from the following symbol, for example,4 is 1 (`I`) less than 5 (`V`): `IV`and 9 is 1 (`I`) less than 10 (`X`): `IX`.Only the following subtractive forms are used: 4 (`IV`), 9 (`IX`),40 (`XL`), 90 (`XC`), 400 (`CD`) and 900 (`CM`).
-- Only powers of 10 (`I`, `X`, `C`, `M`) can be appended consecutively at most 3 times to represent multiples of 10. You cannot append 5(`V`), 50 (`L`), or 500 (`D`) multiple times. If you need to append a symbol4 timesuse the **subtractive form**.
+Seven different symbols represent Roman numerals: `I` (1), `V` (5), `X` (10), `L` (50), `C` (100), `D` (500), and `M` (1000).
 
 Given an integer, convert it to a Roman numeral.
 
-Example 1:
+## Solution
+We can use a greedy approach by matching against descending values:
 
-**Input:** num = 3749
+- Define parallel lookup lists of standard values and subtractive pairs (`1000: M`, `900: CM`, `500: D`, `400: CD`, `100: C`, `90: XC`, `50: L`, `40: XL`, `10: X`, `9: IX`, `5: V`, `4: IV`, `1: I`).
+- Iterate through values from largest to smallest.
+- While `num >= value[i]`, append `symbol[i]` to the result builder and subtract `value[i]` from `num`.
+- Return the string representation.
 
-**Output:** "MMMDCCXLIX"
-
-**Explanation:**
-
-```text
-3000 = MMM as 1000 (M) + 1000 (M) + 1000 (M)
- 700 = DCC as 500 (D) + 100 (C) + 100 (C)
-  40 = XL as 10 (X) less of 50 (L)
-   9 = IX as 1 (I) less of 10 (X)
-Note: 49 is not 1 (I) less of 50 (L) because the conversion is based on decimal places
-```
-
-Example 2:
-
-**Input:** num = 58
-
-**Output:** "LVIII"
-
-**Explanation:**
-
-```text
-50 = L
- 8 = VIII
-```
-
-Example 3:
-
-**Input:** num = 1994
-
-**Output:** "MCMXCIV"
-
-**Explanation:**
-
-```text
-1000 = M
- 900 = CM
-  90 = XC
-   4 = IV
-```
-
-**Constraints:**
-- `1 <= num <= 3999`
+**Complexity:**
+| Time | Space |
+| :--- | :--- |
+| $O(1)$ | $O(1)$ |
+| Bounded by input range ($num \le 3999$), generating at most 15 characters | Fixed-size lookup table and minimal buffer |
