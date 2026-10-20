@@ -14,6 +14,7 @@ We can simulate column-by-column addition:
 - Traverse both lists as long as either list has nodes or `carry > 0`.
 - At each step, add non-nil node values and `carry`, append a new node with `sum % 10`, and update `carry = sum / 10`.
 - Return `dummy.Next`.
+
 **Complexity:**
 - Time: $O(\max(m, n))$ — iterates at most $\max(m, n) + 1$ times, where $m$ and $n$ are the lengths of `l1` and `l2`.
 - Space: $O(1)$ auxiliary space (or $O(\max(m, n))$ for the output list).
