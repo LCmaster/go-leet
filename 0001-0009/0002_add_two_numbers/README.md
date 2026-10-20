@@ -16,5 +16,7 @@ We can simulate column-by-column addition:
 - Return `dummy.Next`.
 
 **Complexity:**
-- Time: $O(\max(m, n))$ — iterates at most $\max(m, n) + 1$ times, where $m$ and $n$ are the lengths of `l1` and `l2`.
-- Space: $O(1)$ auxiliary space (or $O(\max(m, n))$ for the output list).
+| Time | Space |
+| :--- | :--- |
+| $O(\max(m, n))$ | $O(1)$ |
+| Iterates at most $\max(m, n) + 1$ times, where $m$ and $n$ are the lengths of `l1` and `l2` | Auxiliary space ($O(\max(m, n))$ if counting the output list) |
